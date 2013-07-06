@@ -1,0 +1,47 @@
+#!/bin/sh
+
+set -e
+
+abort () {
+  echo "Error: ${@}" >&2
+  exit 1
+}
+
+: ${REPLSETNAME:=default}
+SUPERVISOR_CONF_D=/etc/supervisor/conf.d
+
+ARGS=
+if [ -z "$REPLSETMEMBERS" ]; then
+
+  mkdir -p /var/lib/mongodb/
+  exec start-stop-daemon --start --quiet --chuid mongodb \
+    --exec /usr/bin/mongod -- --config /etc/mongodb.conf
+
+else
+
+  echo "rs.initiate({_id: \"${REPLSETNAME}\", members: [" > /tmp/init.js
+
+  for i in $(seq "$REPLSETMEMBERS"); do
+
+    PORT=$(expr 27016 + $i)
+    DBPATH="/var/lib/mongodb/${REPLSETNAME}-${i}"
+
+    mkdir -p "$DBPATH"
+    chown mongodb "$DBPATH"
+
+    cat >"${SUPERVISOR_CONF_D}/mongo-${i}.conf" <<EOM
+[program:mongo-${i}]
+user = mongodb
+command = /usr/bin/mongod --config /etc/mongodb.conf --replSet '${REPLSETNAME}' --port '${PORT}' --dbpath '${DBPATH}'
+autorestart = true
+
+EOM
+
+    echo "{_id: ${i}, host: \"localhost:${PORT}\" }," >> /tmp/init.js
+  done
+
+  echo "]})" >> /tmp/init.js
+
+  exec /usr/bin/supervisord
+
+fi
