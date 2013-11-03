@@ -1,11 +1,3 @@
-#!/bin/sh
-set -eu
-
-apt-get install -y libexpat1-dev libpq-dev
-
-curl -L http://cpanmin.us | perl - --sudo App::cpanminus
-
-cat <<EOM
 Apache::Session
 CGI
 CGI::Cookie
@@ -105,8 +97,3 @@ UNIVERSAL::require
 URI
 URI::QueryParam
 XML::RSS
-EOM
-| xargs cpanm
-
-curl http://download.bestpractical.com/pub/rt/devel/rt-4.2.0rc5.tar.gz | tar zx
-cd rt-4.2.0rc5
