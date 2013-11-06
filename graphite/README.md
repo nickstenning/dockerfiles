@@ -30,12 +30,12 @@ accessible from anywhere if the host firewall is unconfigured.
 
 ### Data volumes
 
-Graphite data is stored at `/var/lib/graphite/storage` within the container. If
-you wish to store your metrics outside the container (highly recommended) you
-can use docker's data volumes feature. For example, to store graphite's metric
-database at `/data/graphite` on the host, you could use:
+Graphite data is stored at `/var/lib/graphite/storage/whisper` within the
+container. If you wish to store your metrics outside the container (highly
+recommended) you can use docker's data volumes feature. For example, to store
+graphite's metric database at `/data/graphite` on the host, you could use:
 
-    docker run -v /data/graphite:/var/lib/graphite/storage \
+    docker run -v /data/graphite:/var/lib/graphite/storage/whisper \
                -d nickstenning/graphite
 
 ### Technical details
