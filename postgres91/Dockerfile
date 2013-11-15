@@ -13,15 +13,15 @@ run	ln -s /config/postgresql /etc
 # Install PostgreSQL
 run	LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y postgresql-9.1
 
-run	sed -i -e "s/^#listen_addresses = 'localhost'/listen_addresses = '*'/" /etc/postgresql/9.1/main/postgresql.conf 
-run	sed -i -e "s@127.0.0.1/32@0.0.0.0/0@" /etc/postgresql/9.1/main/pg_hba.conf
-run	sed -i -e "s@::1/128@::/0@" /etc/postgresql/9.1/main/pg_hba.conf
+run	sed -i -e "s/^#listen_addresses = 'localhost'/listen_addresses = '*'/" /config/postgresql/9.1/main/postgresql.conf 
+run	sed -i -e "s@127.0.0.1/32@0.0.0.0/0@" /config/postgresql/9.1/main/pg_hba.conf
+run	sed -i -e "s@::1/128@::/0@" /config/postgresql/9.1/main/pg_hba.conf
+run	tar -C /config -czvf /etc/postgresql.tgz postgresql
 
 env     POSTGRES_DBA_PW toor
-run	/etc/init.d/postgresql start && echo "ALTER USER postgres WITH PASSWORD '${POSTGRES_DBA_PW}';" | su - postgres -c "psql template1"
-
+add	./start_postgres.sh	/start_postgres.sh
 expose	5432
 
-cmd	["su", "-", "postgres", "-c", "/usr/lib/postgresql/9.1/bin/postgres -D /var/lib/postgresql/9.1/main -c config_file=/etc/postgresql/9.1/main/postgresql.conf"]
+cmd	["sh", "/start_postgres.sh"]
 
 # vim:ts=8:noet:
