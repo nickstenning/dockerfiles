@@ -8,9 +8,9 @@ if test ! -d /data/pg_conf/9.1; then
     tar -C /data -xzvf /etc/postgresql.tgz
 fi
 
-if test ! -d /data/pg_data/9.1/main; then
-    mkdir -p /data/pg_data/9.1
-    chown postgres /data/pg_data/9.1
+if test ! -d /data/pg_db/9.1/main; then
+    mkdir -p /data/pg_db/9.1
+    chown postgres /data/pg_db/9.1
     pgrun /usr/lib/postgresql/9.1/bin/pg_ctl init -s -D /data/pg_db/9.1/main -o \"-E ${CHARSET}\"
 
     ### XXX This is what ubuntu does and is bad bad bad. Do a better job.
