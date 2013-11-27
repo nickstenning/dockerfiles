@@ -4,18 +4,18 @@ pgrun () {
     su - postgres -c "$*"
 }
 
-if test ! -d /config/postgresql; then
-    tar -C /config -xzvf /etc/postgresql.tgz
+if test ! -d /data/pg_conf/9.1; then
+    tar -C /data -xzvf /etc/postgresql.tgz
 fi
 
-if test ! -d /data/postgresql/9.1/main; then
-    mkdir -p /data/postgresql/9.1
-    chown postgres /data/postgresql/9.1
-    pgrun /usr/lib/postgresql/9.1/bin/pg_ctl init -D /data/postgresql/9.1/main
+if test ! -d /data/pg_db/9.1/main; then
+    mkdir -p /data/pg_db/9.1
+    chown postgres /data/pg_db/9.1
+    pgrun /usr/lib/postgresql/9.1/bin/pg_ctl init -s -D /data/pg_db/9.1/main -o \"-E ${CHARSET}\"
 
     ### XXX This is what ubuntu does and is bad bad bad. Do a better job.
-    ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem /data/postgresql/9.1/main/server.crt
-    ln -s /etc/ssl/private/ssl-cert-snakeoil.key /data/postgresql/9.1/main/server.key
+    ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem /data/pg_db/9.1/main/server.crt
+    ln -s /etc/ssl/private/ssl-cert-snakeoil.key /data/pg_db/9.1/main/server.key
 
     /etc/init.d/postgresql start
     echo "ALTER USER postgres WITH PASSWORD '${POSTGRES_DBA_PW}';" | pgrun psql template1
