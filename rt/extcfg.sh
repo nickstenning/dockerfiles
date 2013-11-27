@@ -2,7 +2,7 @@
 
 mkdir /data
 mv /opt/rt4/etc /data/rt_conf
-mv /opt/rt4/var /var/rt_var
+mv /opt/rt4/var /data/rt_var
 mv /etc/postfix /data/rt_postfix
 mv /etc/nginx /data/rt_nginx
 ln -s /data/rt_conf /opt/rt4/etc
