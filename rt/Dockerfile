@@ -23,6 +23,9 @@ run	sh /src/build_rt.sh
 add	./RT_SiteConfig.pm /opt/rt4/etc/RT_SiteConfig.pm
 run	sh /src/config_rt.sh
 
+# Make cron not complain
+run	touch /etc/mtab
+
 add     ./start_rt.sh /start_rt.sh
 cmd	["/start_rt.sh"]
 
