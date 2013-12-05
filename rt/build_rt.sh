@@ -22,3 +22,4 @@ install_ext https://github.com/bestpractical/rt-extension-resetpassword
 install_ext https://github.com/bestpractical/rt-extension-activityreports
 install_ext https://github.com/bestpractical/rt-extension-spawnlinkedticketinqueue
 install_ext https://github.com/bestpractical/rt-extension-commandbymail
+install_ext https://github.com/bestpractical/rt-extension-repeatticket
