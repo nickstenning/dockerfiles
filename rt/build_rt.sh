@@ -20,3 +20,4 @@ install_ext() {
 install_ext https://github.com/bestpractical/rt-extension-mergeusers
 install_ext https://github.com/bestpractical/rt-extension-resetpassword
 install_ext https://github.com/bestpractical/rt-extension-activityreports
+install_ext https://github.com/bestpractical/rt-extension-spawnlinkedticketinqueue
