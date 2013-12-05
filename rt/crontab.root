@@ -1,3 +1,4 @@
 0 0 * * * /opt/rt4/sbin/rt-email-digest -m daily
 0 0 * * 0 /opt/rt4/sbin/rt-email-digest -m weekly
 0 * * * * /opt/rt4/sbin/rt-email-dashboards
+0 0 * * * /opt/rt4/sbin/rt-repeat-ticket

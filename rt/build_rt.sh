@@ -23,3 +23,5 @@ install_ext https://github.com/bestpractical/rt-extension-activityreports
 install_ext https://github.com/bestpractical/rt-extension-spawnlinkedticketinqueue
 install_ext https://github.com/bestpractical/rt-extension-commandbymail
 install_ext https://github.com/bestpractical/rt-extension-repeatticket
+cp /src/rt-extension-repeatticket/bin/rt-repeat-ticket /opt/rt4/sbin
+
