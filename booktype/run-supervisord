@@ -1,0 +1,44 @@
+#!/bin/bash
+
+#set -eu
+
+status() {
+
+ echo "----> ${@}" >&2
+
+}
+
+status "Update settings.py"
+sed -e 's/PG_HOST/'${DB_PORT_5432_TCP_ADDR}'/g' -i /mybook/settings.py
+sed -e 's/PG_PORT/'${DB_PORT_5432_TCP_PORT}'/g' -i /mybook/settings.py
+sed -e 's/BOOKTYPE_USER/'${BOOKTYPE_USER}'/g' -i /mybook/settings.py
+sed -e 's/BOOKTYPE_DB/'${BOOKTYPE_DB}'/g' -i /mybook/settings.py
+sed -e 's/BOOKTYPE_PASS/'${BOOKTYPE_PASS}'/g' -i /mybook/settings.py
+
+status "setup .pgpass"
+echo "${DB_PORT_5432_TCP_ADDR}:${DB_PORT_5432_TCP_PORT}:*:postgres:${DB_ENV_POSTGRES_DBA_PW}" > /root/.pgpass
+chmod 0600 /root/.pgpass
+
+status "check if booktype db exists"
+psql -Upostgres -h${DB_PORT_5432_TCP_ADDR} -l | grep booktype
+if [ $? -ne 0 ]; #booktype db isnt present
+then
+        createuser -Upostgres -h${DB_PORT_5432_TCP_ADDR} -SDR ${BOOKTYPE_USER}
+        createdb -Upostgres -h${DB_PORT_5432_TCP_ADDR} -E utf8 -O ${BOOKTYPE_DB} ${BOOKTYPE_USER}
+        psql -Upostgres -h${DB_PORT_5432_TCP_ADDR} -c "alter role '${BOOKTYPE_USER}' with password '${BOOKTYPE_PASS}'"
+
+        export DJANGO_SETTINGS_MODULE=mybook.settings
+        export PYTHONPATH=$PYTHONPATH://:/mybook/lib/:/mybooktype/Booktype/lib
+
+        django-admin.py syncdb --noinput
+        django-admin.py migrate
+        django-admin.py createsuperuser --username='sysadmin' --email='sysadmin@okfn.org' --noinput
+else
+	status "looks like booktype db exists"
+fi
+
+status "starting up redis-server"
+/etc/init.d/redis-server start
+
+status "starting up supervisord"
+exec /usr/bin/supervisord -n
