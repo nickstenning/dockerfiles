@@ -2,3 +2,4 @@
 0 0 * * 0 /opt/rt4/sbin/rt-email-digest -m weekly
 0 * * * * /opt/rt4/sbin/rt-email-dashboards
 0 0 * * * /opt/rt4/sbin/rt-repeat-ticket > /var/log/rt-repeat-ticket.log 2>&1
+30 * * * * /opt/rt4/sbin/rt-fulltext-indexer
