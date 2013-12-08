@@ -3,9 +3,11 @@
 set -e
 
 tar -C /src -xzpvf /src/${RTSRC}
-cd /src/${RT} && ./configure --with-db-type=Pg
+cd /src/${RT} && ./configure --with-db-type=Pg --enable-gpg --enable-gd --enable-graphviz
 make -C /src/${RT} testdeps
 make -C /src/${RT} install
+mkdir -p /opt/rt4/var/data/gpg
+chmod 700 /opt/rt4/var/data/gpg
 
 install_ext() {
 	REPO=$1

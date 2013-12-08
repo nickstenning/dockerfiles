@@ -99,3 +99,8 @@ URI::QueryParam
 XML::RSS
 DateTime::Event::ICal
 Time::Duration
+IPC::Run
+GraphViz
+GD::Graph
+GD::Text
+GD
