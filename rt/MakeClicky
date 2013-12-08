@@ -1,0 +1,24 @@
+<%ARGS>
+$types   => []
+$actions => {}
+</%ARGS>
+<%INIT>
+my $web_path = RT->Config->Get('WebPath');
+  
+# action that takes ticket ID as argument and returns link to the ticket
+$actions->{'link_ticket'} = sub {
+    my %args = @_;
+    my $id = $args{'all_matches'}[1];
+    return qq{<a href="$web_path/Ticket/Display.html?id=$id">$args{value}</a>};
+};
+
+# add action to the list
+push @$types, {
+    # name, that should be used in config to activate action
+    name   => 'short_ticket_link',
+    # regular expression that matches text 'ticket #xxx'
+    regex  => qr{ticket\s+#(\d+)}i,
+    # name of the action that should be applied
+    action => 'link_ticket',
+};
+</%INIT>

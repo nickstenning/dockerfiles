@@ -25,3 +25,4 @@ install_ext https://github.com/bestpractical/rt-extension-commandbymail
 install_ext https://github.com/bestpractical/rt-extension-repeatticket
 cp /src/rt-extension-repeatticket/bin/rt-repeat-ticket /opt/rt4/sbin
 
+mkdir -p /opt/rt4/local/html/Callbacks/MyCallbacks/Elements/MakeClicky
