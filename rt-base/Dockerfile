@@ -12,7 +12,7 @@ add	./rt-perl-modules /src/rt-perl-modules
 run	echo 'deb http://us.archive.ubuntu.com/ubuntu/ precise universe' >> /etc/apt/sources.list
 run	apt-get -q -y update
 # Install required packages
-run	DEBIAN_FRONTEND=noninteractive apt-get -q -y install supervisor nginx-light perl-modules cpanminus build-essential libexpat1-dev libpq-dev cron postfix git
+run	DEBIAN_FRONTEND=noninteractive apt-get -q -y install supervisor nginx-light perl-modules cpanminus build-essential libexpat1-dev libpq-dev cron postfix git spamassassin razor procmail logrotate
 
 # Imstall dependencies
 run	< /src/rt-perl-modules xargs cpanm
