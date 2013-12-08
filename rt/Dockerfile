@@ -1,6 +1,6 @@
 # DOCKER-VERSION 0.4.0
 
-from	okfn/rt-base:0.12
+from	okfn/rt-base:0.14
 
 add     ./build_rt.sh /src/build_rt.sh
 add     ./config_rt.sh /src/config_rt.sh
