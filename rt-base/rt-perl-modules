@@ -98,3 +98,4 @@ URI
 URI::QueryParam
 XML::RSS
 DateTime::Event::ICal
+Time::Duration
