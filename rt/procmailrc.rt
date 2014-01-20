@@ -1,0 +1,26 @@
+PATH=/bin:/usr/bin:/opt/rt4/bin
+LOGFILE=/var/log/procmail/rt.log
+
+#Messages >300000 characters proceed to recipient (unlikely to be spam)
+:0w
+* > 300000
+| rt-mailgate --queue $QUEUE --action $ACTION --url https://rt.okfn.org/
+
+:0w
+* ^X-RT-Loop-Prevention: okfn.org
+/dev/null
+
+#Is it spam?
+:0fw: spamassassin.lock
+* < 300000
+| spamc
+ 
+#if the spam trigger is fired send to spam queue
+:0w
+* ^X-spam-Status: Yes
+| rt-mailgate --queue spam --action correspond --url https://rt.okfn.org/
+ 
+#if the spam trigger is not fired then send to expected destination
+:0w
+| rt-mailgate --queue $QUEUE --action $ACTION --url https://rt.okfn.org/
+

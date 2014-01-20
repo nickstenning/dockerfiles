@@ -1,0 +1,6 @@
+/var/log/procmail/rt.log {
+        weekly
+        rotate 12
+        compress
+        missingok
+}

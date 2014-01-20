@@ -25,5 +25,5 @@ sys:		/dev/null
 uucp:		/dev/null
 www-data:	/dev/null
 
-rt:		"|/opt/rt4/bin/rt-mailgate --queue general --action correspond --url http://rt.example.com/"
-rt-comment:	"|/opt/rt4/bin/rt-mailgate --queue general --action comment --url http://rt.example.com/"
+rt:		"|/usr/bin/procmail -m ACTION=correspond QUEUE=general /etc/postfix/procmailrc.rt"
+rt-comment:	"|/usr/bin/procmail -m ACTION=comment QUEUE=general /etc/postfix/procmailrc.rt"
