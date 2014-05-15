@@ -1,1 +1,1 @@
-# I moved to [my own repository](/nickstenning/docker-graphite).
+# I moved to [my own repository](//github.com/nickstenning/docker-graphite).
