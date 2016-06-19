@@ -22,9 +22,9 @@ add	./config.js /src/statsd/config.js
 ##
 
 # Statsd UDP port
-expose	:8125
+expose	8125
 # Statsd Management port
-expose	:8126
+expose	8126
 
 cmd	["/usr/bin/node", "/src/statsd/stats.js", "/src/statsd/config.js"]
 

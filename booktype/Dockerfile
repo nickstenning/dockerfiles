@@ -39,7 +39,7 @@ add	./settings.py /mybook/settings.py
 add     ./run-supervisord /usr/sbin/run-supervisord
 add	./booktype.okfn.org.conf /etc/supervisor/conf.d/booktype.okfn.org.conf
 
-expose  :8000
+expose  8000
 
 cmd     ["/usr/sbin/run-supervisord"]
 

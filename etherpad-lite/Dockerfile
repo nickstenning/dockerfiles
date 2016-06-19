@@ -16,7 +16,7 @@ run	git clone https://github.com/ether/etherpad-lite.git /src/etherpad-lite
 add	./settings.json /src/etherpad-lite/settings.json
 run	/src/etherpad-lite/bin/installDeps.sh
 
-expose	:9001
+expose	9001
 
 entrypoint	["/src/etherpad-lite/bin/run.sh", "--root"]
 

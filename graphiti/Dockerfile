@@ -17,9 +17,9 @@ add	./unicorn.rb /src/graphiti/config/unicorn.rb
 add	./settings.yml /src/graphiti/config/settings.yml
 
 # Unicorn port
-expose	:8080
+expose	8080
 # Redis port
-expose	:6379
+expose	6379
 
 cmd	["/usr/bin/supervisord"]
 
