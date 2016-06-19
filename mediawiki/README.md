@@ -13,9 +13,10 @@ wiki:
 
     CONFIG_CONTAINER=$(docker run -d nickstenning/mediawiki)
 
-At the end of this process you can place the resulting `LocalSettings.php` in a
-directory on the host (say, `/data/wiki`) and restart the container to obtain a
-fully-configured MediaWiki installation.
+At the end of this process the MediaWiki installer will generate a
+`LocalSettings.php` which your browser will automatically download. You can
+place the resulting config file in a directory on the host (say, `/data/wiki`)
+and restart the container to obtain a fully-configured MediaWiki installation.
 
     docker stop $CONFIG_CONTAINER
     docker run -v /data/wiki:/data -d nickstenning/mediawiki
