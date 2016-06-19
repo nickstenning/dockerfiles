@@ -27,6 +27,11 @@ installation, you can simply skip the first step.
 By default, MediaWiki uploads will also be written to the `images/` directory of
 the mounted data volume. This directory will be created if necessary on startup.
 
+### Customisation
+
+The nginx webserver will include files matching `nginx/*.conf` from the data
+volume. This can be used to customise the webserver configuration.
+
 ### Technical details
 
 For more information, see [the
