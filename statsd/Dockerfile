@@ -22,7 +22,7 @@ add	./config.js /src/statsd/config.js
 ##
 
 # Statsd UDP port
-expose	8125
+expose	8125/udp
 # Statsd Management port
 expose	8126
 
