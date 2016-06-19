@@ -5,8 +5,17 @@ run	echo 'deb http://us.archive.ubuntu.com/ubuntu/ trusty universe' >> /etc/apt/
 run	apt-get -y update
 
 # Install prereqs
-run	LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y supervisor nginx-light php5-fpm php5-intl php5-mysql
-run	LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y php-apc php5-gd php5-intl php5-mysqlnd php5-pgsql
+run	LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    supervisor \
+    nginx-light \
+    php-apc \
+    php-mail \
+    php-net-smtp \
+    php5-fpm \
+    php5-gd \
+    php5-intl \
+    php5-mysqlnd \
+    php5-pgsql
 
 # Add system service config
 add	./nginx.conf /etc/nginx/nginx.conf
