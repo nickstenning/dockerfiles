@@ -64,4 +64,6 @@ RUN buildDeps=' \
 	&& rm -rf /tmp/slack-desktop.deb \
 	&& apt-get purge -y --auto-remove $buildDeps
 
+RUN groupadd -g 1000 nick && useradd -m -s /bin/bash -u 1000 -g 1000 -N nick
+USER nick
 ENTRYPOINT ["/usr/lib/slack/slack"]
